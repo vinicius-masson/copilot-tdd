@@ -25,4 +25,26 @@ describe('API Endpoints', () => {
       });
     });
   });
+
+  describe('GET /products/:id', () => {
+    test('should return a product when id exists', async () => {
+      const response = await request(app)
+        .get('/products/1')
+        .expect(200);
+
+      expect(response.body).toEqual({
+        id: 1,
+        title: expect.any(String),
+        price: expect.any(Number)
+      });
+    });
+
+    test('should return 404 when product id does not exist', async () => {
+      const response = await request(app)
+        .get('/products/999')
+        .expect(404);
+
+      expect(response.body).toHaveProperty('error');
+    });
+  });
 });
