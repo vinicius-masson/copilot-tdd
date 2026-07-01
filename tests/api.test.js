@@ -13,4 +13,16 @@ describe('API Endpoints', () => {
       });
     });
   });
+
+  describe('GET /healthcheck', () => {
+    test('should return ok status', async () => {
+      const response = await request(app)
+        .get('/healthcheck')
+        .expect(200);
+
+      expect(response.body).toEqual({
+        status: 'ok'
+      });
+    });
+  });
 });
